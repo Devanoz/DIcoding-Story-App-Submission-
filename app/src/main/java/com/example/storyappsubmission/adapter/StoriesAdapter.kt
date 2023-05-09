@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -17,8 +19,8 @@ import com.example.storyappsubmission.databinding.ItemStoryBinding
 import com.example.storyappsubmission.ui.DetailStoryActivity
 
 
-class StoriesAdapter(private val storyList: List<StoryItem>) :
-    RecyclerView.Adapter<StoriesAdapter.ViewHolder>() {
+class StoriesAdapter :
+    PagingDataAdapter<StoryItem,StoriesAdapter.ViewHolder>(DIFF_ITEM_CALLBACK) {
 
     var activityContext: Context? = null
 
@@ -67,13 +69,34 @@ class StoriesAdapter(private val storyList: List<StoryItem>) :
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = storyList.size
+//    override fun getItemCount(): Int = storyList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(storyList[position])
+        val story = getItem(position)
+        if (story != null) {
+            holder.bind(story)
+        }
     }
 
     companion object {
         const val ID_EXTRA = "id_extra"
+        val DIFF_ITEM_CALLBACK = object : DiffUtil.ItemCallback<StoryItem>() {
+            override fun areItemsTheSame(
+                oldStory: StoryItem,
+                newStory: StoryItem
+            ): Boolean {
+                return oldStory == newStory
+            }
+
+            override fun areContentsTheSame(
+                oldStory: StoryItem,
+                newStory: StoryItem
+            ): Boolean {
+                return oldStory.name == newStory.name &&
+                        oldStory.description == newStory.description &&
+                        oldStory.photoUrl == newStory.photoUrl
+            }
+        }
     }
+
 }

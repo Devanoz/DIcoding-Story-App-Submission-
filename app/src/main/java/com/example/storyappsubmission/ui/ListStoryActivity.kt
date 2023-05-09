@@ -2,6 +2,7 @@ package com.example.storyappsubmission.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,9 @@ import com.example.storyappsubmission.adapter.StoriesAdapter
 import com.example.storyappsubmission.data.local.PreferencesDataStoreConstans
 import com.example.storyappsubmission.data.local.PreferencesDataStoreHelper
 import com.example.storyappsubmission.databinding.ActivityListStoryBinding
+import com.example.storyappsubmission.di.Injection
 import com.example.storyappsubmission.viewmodel.ListStoryViewModel
+import com.example.storyappsubmission.viewmodel.ListStoryViewModelFactory
 import com.example.storyappsubmission.viewmodel.MyViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -59,17 +62,17 @@ class ListStoryActivity : AppCompatActivity() {
 
         val rvStories = binding.rvStory
         listStoryViewModel =
-            ViewModelProvider(this, MyViewModelFactory(application))[ListStoryViewModel::class.java]
+            ViewModelProvider(this, ListStoryViewModelFactory(application,Injection.provideRepository(this)))[ListStoryViewModel::class.java]
 
-        srlRefreshStory.isRefreshing = true
+//        srlRefreshStory.isRefreshing = true
 
-        listStoryViewModel.storyList.observe(this) { storyList ->
-            rvStories.layoutManager = LinearLayoutManager(this)
-            storiesAdapter = StoriesAdapter(storyList)
-            rvStories.adapter = storiesAdapter
-            storiesAdapter.activityContext = this
-            srlRefreshStory.isRefreshing = false
-        }
+//        listStoryViewModel.storyList.observe(this) { storyList ->
+//            rvStories.layoutManager = LinearLayoutManager(this)
+//            storiesAdapter = StoriesAdapter(storyList)
+//            rvStories.adapter = storiesAdapter
+//            storiesAdapter.activityContext = this
+//            srlRefreshStory.isRefreshing = false
+//        }
 
         lifecycleScope.launch {
             getUserName()
@@ -99,11 +102,22 @@ class ListStoryActivity : AppCompatActivity() {
         fabAddStory.setOnClickListener {
             launchAddStoryForResult.launch(Intent(this, AddStoryActivity::class.java))
         }
+        getData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.story_menu, menu)
         return true
+    }
+
+    private fun getData() {
+        val adapter = StoriesAdapter()
+        binding.rvStory.adapter = adapter
+        binding.rvStory.layoutManager = LinearLayoutManager(this)
+        listStoryViewModel.stories.observe(this) {
+            adapter.submitData(lifecycle, it)
+            Log.d("faah",it.toString())
+        }
     }
 
     private suspend fun getUserName() {
@@ -113,6 +127,7 @@ class ListStoryActivity : AppCompatActivity() {
             token = preferencesHelper.getFirstPreference(PreferencesDataStoreConstans.TOKEN, "")
         }
     }
+
 
     private suspend fun logout() {
         withContext(Dispatchers.IO) {
