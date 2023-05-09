@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">StoryAppSubmission</string>
+    <string name="logout_menu_title">logout</string>
+    <string name="logout_menu_description">wahh</string>
+    <string name="file_not_choosen">File is not choosen yet</string>
+    <string name="photo_capture_failed">Photo Capture failed</string>
+    <string name="photo_capture_succed">Photo Capture succed: %s</string>
+    <string name="permissions_not_granted_by_the_user">Permissions not granted by the user.</string>
+    <string name="upload_success">upload success</string>
+    <string name="add_story_failed">Add Story Failed</string>
+    <string name="something_error">Something Error</string>
+    <string name="failed_to_load_data">Failed to Load Data</string>
+    <string name="wrong_username_or_password">Wrong Username or Password</string>
+    <string name="failed_to_register_try_again">Failed to register, try again</string>
+    <string name="register_success">register success</string>
+    <string name="insert_your_email">Insert your Email</string>
+    <string name="email_is_not_valid">email is not valid</string>
+    <string name="insert_your_password">Insert your password</string>
+    <string name="password_cannot_be_less_than_8_characters">password cannot be less than 8 characters</string>
+    <string name="camera">camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="create_your_story">Create Your Story</string>
+    <string name="upload">upload</string>
+    <string name="add_story">Add Story</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="dont_have_account">Dont have account?</string>
+    <string name="register">Register</string>
+    <string name="register_your_account">Register Your Account</string>
+    <string name="email">Email</string>
+    <string name="full_name">Full name</string>
+    <string name="see_detail">See detail</string>
+</resources>

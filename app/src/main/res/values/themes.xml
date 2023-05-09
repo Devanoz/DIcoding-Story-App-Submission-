@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.StoryAppSubmission" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/light_blue</item>
+        <item name="colorPrimaryVariant">@color/ligth_blue_20</item>
+        <item name="colorSecondary">@color/light_blue_40</item>
+    </style>
+
+    <style name="Theme.StoryAppSubmission" parent="Base.Theme.StoryAppSubmission" />
+    <style name="Theme.CustomSplashScreenTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/light_blue</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/story_app_log</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.StoryAppSubmission</item>
+    </style>
+</resources>
