@@ -31,32 +31,35 @@ class ListStoryViewModel(private val storyRepository: StoryRepository,applicatio
     private val _storyList = MutableLiveData<List<StoryItem>>()
     val storyList: LiveData<List<StoryItem>> = _storyList
 
-    val stories: LiveData<PagingData<StoryItem>> =
+    var stories: LiveData<PagingData<StoryItem>> =
         storyRepository.getStories().cachedIn(viewModelScope)
 
     init {
         client = ApiConfig.getApiServiceWithToken(token)
-        getAllStories()
-
+//        getAllStories()
     }
 
-    fun getAllStories() {
-
-        val call = client.getAllStories()
-        call.enqueue(object : Callback<StoriesResponse> {
-            override fun onResponse(
-                call: Call<StoriesResponse>,
-                response: Response<StoriesResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val storyList = response.body()?.listStory
-                    _storyList.value = storyList
-                }
-            }
-
-            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
-                //show snackbar
-            }
-        })
+    fun refreshStoryList() {
+        stories = storyRepository.getStories().cachedIn(viewModelScope)
     }
+
+//    fun getAllStories() {
+//
+//        val call = client.getAllStories()
+//        call.enqueue(object : Callback<StoriesResponse> {
+//            override fun onResponse(
+//                call: Call<StoriesResponse>,
+//                response: Response<StoriesResponse>
+//            ) {
+//                if (response.isSuccessful) {
+//                    val storyList = response.body()?.listStory
+//                    _storyList.value = storyList
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
+//                //show snackbar
+//            }
+//        })
+//    }
 }

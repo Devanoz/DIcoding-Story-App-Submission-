@@ -47,8 +47,6 @@ class AddStoryActivity : AppCompatActivity() {
 
         val viewModel =
             ViewModelProvider(this, MyViewModelFactory(application))[AddStoryViewModel::class.java]
-        val listStoryViewModel =
-            ViewModelProvider(this, MyViewModelFactory(application))[ListStoryViewModel::class.java]
 
         binding.btnPickFromGallery.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -60,7 +58,7 @@ class AddStoryActivity : AppCompatActivity() {
         }
         viewModel.isUploadSuccess.observe(this) {
             if (it) {
-                listStoryViewModel.getAllStories()
+//                listStoryViewModel.getAllStories()
                 setResult(ListStoryActivity.REQUEST_UPLOAD_SUCCES_CONDITION)
                 finish()
             }

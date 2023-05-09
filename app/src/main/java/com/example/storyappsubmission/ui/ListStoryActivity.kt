@@ -35,12 +35,15 @@ class ListStoryActivity : AppCompatActivity() {
     private lateinit var fabAddStory: ExtendedFloatingActionButton
     private lateinit var srlRefreshStory: SwipeRefreshLayout
 
+    private lateinit var adapter: StoriesAdapter
+
     private lateinit var listStoryViewModel: ListStoryViewModel
 
     private val launchAddStoryForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == REQUEST_UPLOAD_SUCCES_CONDITION) {
-                listStoryViewModel.getAllStories()
+                adapter.refresh()
+                getData()
             }
         }
 
@@ -62,7 +65,7 @@ class ListStoryActivity : AppCompatActivity() {
 
         val rvStories = binding.rvStory
         listStoryViewModel =
-            ViewModelProvider(this, ListStoryViewModelFactory(application,Injection.provideRepository(this)))[ListStoryViewModel::class.java]
+            ViewModelProvider(this, ListStoryViewModelFactory(application))[ListStoryViewModel::class.java]
 
 //        srlRefreshStory.isRefreshing = true
 
@@ -98,11 +101,15 @@ class ListStoryActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        srlRefreshStory.setOnRefreshListener { listStoryViewModel.getAllStories() }
+        getData()
+        srlRefreshStory.setOnRefreshListener {
+            adapter.refresh()
+            getData()
+            srlRefreshStory.isRefreshing = false
+        }
         fabAddStory.setOnClickListener {
             launchAddStoryForResult.launch(Intent(this, AddStoryActivity::class.java))
         }
-        getData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -111,7 +118,7 @@ class ListStoryActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        val adapter = StoriesAdapter()
+        adapter = StoriesAdapter()
         binding.rvStory.adapter = adapter
         binding.rvStory.layoutManager = LinearLayoutManager(this)
         listStoryViewModel.stories.observe(this) {
