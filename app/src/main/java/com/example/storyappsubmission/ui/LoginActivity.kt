@@ -12,7 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import com.example.storyappsubmission.databinding.ActivityLoginBinding
 import com.example.storyappsubmission.viewmodel.LoginViewModel
-import com.example.storyappsubmission.viewmodel.MyViewModelFactory
+import com.example.storyappsubmission.viewmodel.factory.MyViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

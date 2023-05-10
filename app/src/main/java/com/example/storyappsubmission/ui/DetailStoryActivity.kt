@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.storyappsubmission.adapter.StoriesAdapter
 import com.example.storyappsubmission.databinding.ActivityDetailStoryBinding
 import com.example.storyappsubmission.viewmodel.DetailStoryViewModel
-import com.example.storyappsubmission.viewmodel.MyViewModelFactory
+import com.example.storyappsubmission.viewmodel.factory.MyViewModelFactory
 
 class DetailStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailStoryBinding

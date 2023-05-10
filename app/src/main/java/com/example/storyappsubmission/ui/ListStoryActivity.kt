@@ -16,10 +16,8 @@ import com.example.storyappsubmission.adapter.StoriesAdapter
 import com.example.storyappsubmission.data.local.PreferencesDataStoreConstans
 import com.example.storyappsubmission.data.local.PreferencesDataStoreHelper
 import com.example.storyappsubmission.databinding.ActivityListStoryBinding
-import com.example.storyappsubmission.di.Injection
 import com.example.storyappsubmission.viewmodel.ListStoryViewModel
-import com.example.storyappsubmission.viewmodel.ListStoryViewModelFactory
-import com.example.storyappsubmission.viewmodel.MyViewModelFactory
+import com.example.storyappsubmission.viewmodel.factory.ListStoryViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.coroutines.Dispatchers
@@ -95,6 +93,10 @@ class ListStoryActivity : AppCompatActivity() {
                         startActivity(Intent(this@ListStoryActivity, LoginActivity::class.java))
                         finish()
                     }
+                    true
+                }
+                R.id.map_menu -> {
+                    startActivity(Intent(this,MapsActivity::class.java))
                     true
                 }
 

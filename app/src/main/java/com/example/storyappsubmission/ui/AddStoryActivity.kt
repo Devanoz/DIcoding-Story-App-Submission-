@@ -13,8 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.storyappsubmission.R
 import com.example.storyappsubmission.databinding.ActivityAddStoryBinding
 import com.example.storyappsubmission.viewmodel.AddStoryViewModel
-import com.example.storyappsubmission.viewmodel.ListStoryViewModel
-import com.example.storyappsubmission.viewmodel.MyViewModelFactory
+import com.example.storyappsubmission.viewmodel.factory.MyViewModelFactory
 
 class AddStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddStoryBinding

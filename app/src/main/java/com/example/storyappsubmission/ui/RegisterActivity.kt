@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import com.example.storyappsubmission.databinding.ActivityRegisterBinding
-import com.example.storyappsubmission.viewmodel.MyViewModelFactory
+import com.example.storyappsubmission.viewmodel.factory.MyViewModelFactory
 import com.example.storyappsubmission.viewmodel.RegisterViewModel
 
 class RegisterActivity : AppCompatActivity() {

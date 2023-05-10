@@ -1,8 +1,12 @@
-package com.example.storyappsubmission.viewmodel
+package com.example.storyappsubmission.viewmodel.factory
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.storyappsubmission.viewmodel.AddStoryViewModel
+import com.example.storyappsubmission.viewmodel.DetailStoryViewModel
+import com.example.storyappsubmission.viewmodel.LoginViewModel
+import com.example.storyappsubmission.viewmodel.RegisterViewModel
 
 class MyViewModelFactory constructor(private val application: Application) :
     ViewModelProvider.Factory {

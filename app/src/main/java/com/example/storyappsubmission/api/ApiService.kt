@@ -10,6 +10,7 @@ import com.example.storyappsubmission.data.model.RegisterModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -33,6 +34,11 @@ interface ApiService {
     suspend fun getStoriesWithPageAndSize(
         @Query("page") page: Int,
         @Query("size") size: Int,
+        @Query("location") isEnabled: Int = 1
+    ): StoriesResponse
+
+    @GET("stories?location=1")
+    suspend fun getStoriesWithLocation(
     ): StoriesResponse
 
     @Multipart
