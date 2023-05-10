@@ -61,7 +61,6 @@ class ListStoryActivity : AppCompatActivity() {
         setSupportActionBar(toolbarStory)
         fabAddStory = binding.fabAddStory
 
-        val rvStories = binding.rvStory
         listStoryViewModel =
             ViewModelProvider(this, ListStoryViewModelFactory(application))[ListStoryViewModel::class.java]
 

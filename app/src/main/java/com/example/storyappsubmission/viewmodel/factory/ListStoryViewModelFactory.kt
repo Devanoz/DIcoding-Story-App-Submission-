@@ -14,7 +14,7 @@ class ListStoryViewModelFactory constructor(private val application: Application
     @Suppress("unchecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(ListStoryViewModel::class.java)) {
-            ListStoryViewModel(repository,application) as T
+            ListStoryViewModel(repository) as T
         } else {
             throw IllegalArgumentException("Viewmodel not found")
         }
