@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.storyappsubmission.R
+import com.example.storyappsubmission.adapter.LoadingStateAdapter
 import com.example.storyappsubmission.adapter.StoriesAdapter
 import com.example.storyappsubmission.data.local.PreferencesDataStoreConstans
 import com.example.storyappsubmission.data.local.PreferencesDataStoreHelper
@@ -64,16 +65,6 @@ class ListStoryActivity : AppCompatActivity() {
         listStoryViewModel =
             ViewModelProvider(this, ListStoryViewModelFactory(application))[ListStoryViewModel::class.java]
 
-//        srlRefreshStory.isRefreshing = true
-
-//        listStoryViewModel.storyList.observe(this) { storyList ->
-//            rvStories.layoutManager = LinearLayoutManager(this)
-//            storiesAdapter = StoriesAdapter(storyList)
-//            rvStories.adapter = storiesAdapter
-//            storiesAdapter.activityContext = this
-//            srlRefreshStory.isRefreshing = false
-//        }
-
         lifecycleScope.launch {
             getUserName()
             if (name.isEmpty()) {
@@ -120,7 +111,11 @@ class ListStoryActivity : AppCompatActivity() {
 
     private fun getData() {
         adapter = StoriesAdapter()
-        binding.rvStory.adapter = adapter
+        binding.rvStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
         binding.rvStory.layoutManager = LinearLayoutManager(this)
         listStoryViewModel.stories.observe(this) {
             adapter.submitData(lifecycle, it)
